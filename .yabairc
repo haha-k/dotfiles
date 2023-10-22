@@ -1,0 +1,122 @@
+#!/usr/bin/env sh
+# 这里参考了 yabai 的 wiki 。具体步骤下面讲
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+
+# 窗口布局 bsp: 平铺 float: 浮动
+yabai -m config layout                       bsp
+# 默认拆分规则 first_child second_child
+yabai -m config window_placement             second_child
+# 窗口间距设置
+yabai -m config top_padding                  5
+yabai -m config bottom_padding               5
+yabai -m config left_padding                 5
+yabai -m config right_padding                5
+yabai -m config window_gap                   5
+# 自动平衡所有窗口始终占据相同的空间
+yabai -m config auto_balance                 on
+# 如果禁用自动平衡，此项属性定义的是新窗口占用的空间量。0.5意为旧窗口占用50%
+yabai -m config split_ratio                 0.50
+# 鼠标修饰键 意思就是按着这个键就可以使用鼠标单独修改窗口大小了
+yabai -m config mouse_modifier               option
+# fn + 左键 移动
+yabai -m config mouse_action1                move
+# fn + 右键 
+yabai -m config mouse_action2                resize
+# 焦点跟随鼠标 默认off: 关闭  autoraise:自动提升 autofocus: 自动对焦
+yabai -m config focus_follows_mouse          off
+# 设置鼠标是否跟随当前活动窗口 默认 off: 关闭 on: 开启
+yabai -m config mouse_follows_focus          on
+
+# 浮动窗口问题在顶部
+yabai -m config window_topmost               off
+# 修改窗口阴影 on: 打开 off: 关闭 float: 只显示浮动窗口的阴影
+yabai -m config window_shadow                off
+
+# 窗口透明度设置
+# yabai -m config window_opacity               off
+# yabai -m config active_window_opacity 1  #为聚焦窗口设置95%的透明度
+# yabai -m config normal_window_opacity 1   #为非聚焦窗口设置90%的透明度
+yabai -m config window_opacity_duration 0
+
+# ====== Border settings =======================
+yabai -m config window_border                off
+yabai -m config window_border_width          0.5
+
+# yabai -m config active_window_border_color   0xfac23541
+# yabai -m config normal_window_border_color   0x7f6123A
+# yabai -m config insert_window_border_color   0xffCF515C
+# 在主显示器上的每个空间顶部添加 20 填充 底部添加 0 填充
+# yabai -m config external_bar main:20:0
+# 在所有显示器上的每个空间顶部添加 0 填充 底部添加 0 填充
+yabai -m config external_bar all:0:5
+
+
+
+# 临时性的App 也就是manage=off不受到yabai平铺式的限制，之前怎么弹出来就怎么弹出来
+# otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|1Password 7|Mail|微信|WeChat|QQ|印象笔记)$'
+# yabai -m rule --add app="${otherApp}" manage=off
+# yabai -m config active_window_border_color   0xff775759
+# yabai -m config normal_window_border_color   0xff555555
+# yabai -m config insert_feedback_color        0xffd75f5f
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^系统设置$" manage=off
+yabai -m rule --add app="^System Information$" sticky=on  manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on  manage=off
+yabai -m rule --add app="^Finder$" sticky=on  manage=off
+yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^飞书$" sticky=on layer=above manage=off
+yabai -m rule --add app="^日历$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Feishu$" sticky=on  manage=off
+yabai -m rule --add app="^Lark$" sticky=on  manage=off
+yabai -m rule --add app="^Lark Meetings$" sticky=on manage=off
+yabai -m rule --add app="^Seal$" sticky=on  manage=off
+yabai -m rule --add app="^AppCleaner$" manage=off
+yabai -m rule --add app="^Karabiner-Elements$" sticky=on manage=off
+yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on manage=off
+yabai -m rule --add app="^Things$" manage=off
+yabai -m rule --add app="^Spotify$" manage=off
+yabai -m rule --add app="^Bartender 4$" manage=off
+yabai -m rule --add app="^BetterTouchTool$" manage=off
+yabai -m rule --add app="^Magnet$" manage=off
+yabai -m rule --add app="^WeChat$" manage=off
+yabai -m rule --add app="^微信$" manage=off
+yabai -m rule --add app="^微信开发者工具$" manage=off
+yabai -m rule --add app="^Alfred Preferences$" manage=off
+yabai -m rule --add app="^Wechat$" manage=off
+yabai -m rule --add app="^QQ$" manage=off
+yabai -m rule --add app="^企业微信$" manage=off
+yabai -m rule --add app="^iTerm2$" manage=off
+yabai -m rule --add app="^网易云音乐$" manage=off
+yabai -m rule --add app="^邮箱$" manage=off
+yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^飞连$" manage=off
+yabai -m rule --add app="^Xmind$" manage=off
+yabai -m rule --add app="^Notion$" manage=off
+yabai -m rule --add app="^活动监视器$" manage=off
+yabai -m rule --add app="^访达$" manage=off
+yabai -m rule --add app="^哔哩哔哩$" manage=off
+yabai -m rule --add app="^小程序$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add app="^Wondershare PDFelement Pro$" manage=off
+yabai -m rule --add app="^WGestures$" manage=off
+yabai -m rule --add app="^ClashX Pro$" manage=off
+
+
+normal_border_color="010101"
+focused_border_color="FFD700"
+preselect_border_color="2d74da"
+ 
+ 
+yabai -m config window_border               off
+yabai -m config window_border_width         2
+yabai -m config active_window_border_color  "0xE0${focused_border_color}"
+yabai -m config insert_window_border_color  "0xE0${preselect_border_color}"
+yabai -m config normal_window_border_color  "0x00${normal_border_color}"
+
+echo "yabai configuration loaded.."
+
+# SPACEBAR_HEIGHT=$(spacebar -m config height)
+# yabai -m config external_bar bottom_padding:$SPACEBAR_HEIGHT:0
+
